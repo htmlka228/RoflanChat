@@ -2,6 +2,7 @@ package com.example.application.security;
 
 import com.example.application.service.RoflanUserService;
 import com.example.application.views.login.LoginView;
+import com.vaadin.flow.spring.security.VaadinSavedRequestAwareAuthenticationSuccessHandler;
 import com.vaadin.flow.spring.security.VaadinWebSecurityConfigurerAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.savedrequest.RequestCache;
 
 import javax.sql.DataSource;
 
@@ -30,6 +32,9 @@ public class SecurityConfig extends VaadinWebSecurityConfigurerAdapter {
         http.userDetailsService(roflanUserService);
         super.configure(http);
         setLoginView(http, LoginView.class, "/logout");
+
+        // Custom url to redirect after logging in
+        http.formLogin().successHandler(getVaadinSavedRequestAwareAuthenticationSuccessHandler(http));
     }
 
     @Override
@@ -50,6 +55,17 @@ public class SecurityConfig extends VaadinWebSecurityConfigurerAdapter {
                 )
                 .rolePrefix("ROLE_")
                 .passwordEncoder(bCryptPasswordEncoder());
+    }
+
+    private VaadinSavedRequestAwareAuthenticationSuccessHandler getVaadinSavedRequestAwareAuthenticationSuccessHandler(HttpSecurity http) {
+        VaadinSavedRequestAwareAuthenticationSuccessHandler vaadinSavedRequestAwareAuthenticationSuccessHandler = new VaadinSavedRequestAwareAuthenticationSuccessHandler();
+        vaadinSavedRequestAwareAuthenticationSuccessHandler.setDefaultTargetUrl(applyUrlMapping("/chat"));
+        RequestCache requestCache = http.getSharedObject(RequestCache.class);
+        if (requestCache != null) {
+            vaadinSavedRequestAwareAuthenticationSuccessHandler.setRequestCache(requestCache);
+        }
+
+        return vaadinSavedRequestAwareAuthenticationSuccessHandler;
     }
 
     @Bean

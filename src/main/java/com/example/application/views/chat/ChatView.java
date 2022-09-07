@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
 
 @PageTitle("RFLN Connect")
 @Route(value = "/chat", layout = ChatLayout.class)
-@UIScope()
+@UIScope
 @SpringComponent
 @PermitAll
 public class ChatView extends VerticalLayout {
@@ -65,7 +65,7 @@ public class ChatView extends VerticalLayout {
             if (!StringUtils.isEmpty(messageText)) {
                 RoflanMessage message = RoflanMessage.builder()
                         .message(messageText)
-                        .user(securityService.getAuthenticatedUser()) //TODO Make sure this one is working for multiple users
+                        .user(securityService.getAuthenticatedUser())
                         .sentTime(LocalDateTime.now())
                         .build();
 
@@ -80,19 +80,6 @@ public class ChatView extends VerticalLayout {
 
         addClassName("roflan-chat-wrapper");
         add(messagesLayout, sendMessageLayout);
-    }
-
-    private void updateChatViews(UIRoflanMessage message) {
-        //TODO OMG, PLS FIND OTHER SOLUTION TO UPDATE ALL USER VIEWS
-//        this.getUI().ifPresent(ui -> ui.getChildren()
-//                .filter(component -> component instanceof ChatLayout)
-//                .flatMap(Component::getChildren)
-//                .filter(el -> el instanceof ChatView)
-//                .flatMap(Component::getChildren)
-//                .filter(el -> el instanceof VerticalLayout && ((VerticalLayout) el).getClassNames().contains("roflan-messages-area"))
-//                .map(chat -> (VerticalLayout) chat)
-//                .forEach(chat -> chat.add(message))
-//        );
     }
 
     @Override
