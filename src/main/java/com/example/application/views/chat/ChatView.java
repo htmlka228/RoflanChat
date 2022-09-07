@@ -1,6 +1,6 @@
 package com.example.application.views.chat;
 
-import com.example.application.broadcast.Broadcaster;
+import com.example.application.broadcast.RoflanMessageBroadcaster;
 import com.example.application.component.UIRoflanMessage;
 import com.example.application.layout.ChatLayout;
 import com.example.application.model.RoflanMessage;
@@ -45,7 +45,6 @@ public class ChatView extends VerticalLayout {
         messageInput.setAutofocus(true);
         messageInput.addClassName("roflan-message-input");
 
-//        VerticalLayout messagesLayout = new VerticalLayout();
         messagesLayout.addClassName("roflan-messages-area");
         messagesLayout.removeAll();
         roflanMessageService.getMessagesHistory().forEach(message -> {
@@ -70,7 +69,7 @@ public class ChatView extends VerticalLayout {
                         .build();
 
                 roflanMessageService.save(message);
-                Broadcaster.broadcast(message);
+                RoflanMessageBroadcaster.broadcast(message);
             }
         });
 
@@ -85,7 +84,7 @@ public class ChatView extends VerticalLayout {
     @Override
     protected void onAttach(AttachEvent attachEvent) {
         UI ui = attachEvent.getUI();
-        broadcasterRegistration = Broadcaster.register(newMessage -> ui.access(() -> messagesLayout.add(new UIRoflanMessage(newMessage))));
+        broadcasterRegistration = RoflanMessageBroadcaster.register(newMessage -> ui.access(() -> messagesLayout.add(new UIRoflanMessage(newMessage))));
     }
 
     @Override
