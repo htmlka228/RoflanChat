@@ -35,4 +35,25 @@ vaadin-app-layout::part(drawer) {
     margin-right: 10px;
     padding: 0;
     background-color: #c2d9fc;
+    max-height: 50px;
+}
+
+:host([readonly])::after {
+    background-color: transparent;
+    opacity: 0;
+    border: none;
+}
+
+.logged-in-user-field {
+    border: 0.5px dashed;
+    max-height: 30px;
+    padding: 0px;
+    max-width: 130px;
+}
+
+::slotted(:not([slot$='fix'])) {
+    min-height: 30px;
+    /*
+    TODO It shouldn't affect all inputs, only logged in users
+    */
 }

@@ -11,6 +11,7 @@ import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.DetachEvent;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -33,6 +34,7 @@ import java.time.LocalDateTime;
 @UIScope
 @SpringComponent
 @JsModule("js/chat-onload-scroller.js")
+@CssImport(value = "themes/mytodo/styles.css", themeFor = "vaadin-input-container")
 @Slf4j
 @PermitAll
 public class ChatView extends VerticalLayout {
@@ -66,7 +68,7 @@ public class ChatView extends VerticalLayout {
         sendMessageIcon.addClickListener(e -> {
             sendMessage(messageInput.getValue());
             messageInput.setValue(StringUtils.EMPTY);
-            getUI().ifPresent(ui -> ui.access(this::scrollDownChat));
+            getUI().ifPresent(ui -> ui.access(this::scrollDownChat)); //TODO it should be broadcast but if user is looking at the history, script shouldn't affect his chat
         });
 
         sendMessageIcon.addClickShortcut(Key.ENTER);

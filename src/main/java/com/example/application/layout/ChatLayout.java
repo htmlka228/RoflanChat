@@ -84,6 +84,7 @@ public class ChatLayout extends AppLayout {
         TextField loggedInUserField = new TextField();
         loggedInUserField.setReadOnly(true);
         loggedInUserField.setValue(username);
+        loggedInUserField.addClassName("logged-in-user-field");
 
         return loggedInUserField;
     }
