@@ -1,7 +1,7 @@
 package com.example.application.security;
 
 import com.example.application.service.RoflanUserService;
-import com.example.application.views.login.LoginView;
+import com.example.application.view.login.LoginView;
 import com.vaadin.flow.spring.security.VaadinSavedRequestAwareAuthenticationSuccessHandler;
 import com.vaadin.flow.spring.security.VaadinWebSecurityConfigurerAdapter;
 import org.springframework.beans.factory.annotation.Autowired;

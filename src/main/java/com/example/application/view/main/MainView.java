@@ -1,6 +1,6 @@
-package com.example.application.views.main;
+package com.example.application.view.main;
 
-import com.example.application.views.login.LoginView;
+import com.example.application.view.login.LoginView;
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H3;
@@ -11,8 +11,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
-
-import javax.annotation.security.PermitAll;
 
 @PageTitle("RFLN Connect")
 @Route(value = "")
