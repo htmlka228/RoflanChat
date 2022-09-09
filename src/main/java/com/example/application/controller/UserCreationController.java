@@ -20,7 +20,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RequestMapping("/api/users")
 @AnonymousAllowed
-public class UserCreationEndpoint {
+public class UserCreationController {
     private final RoflanUserRepository roflanUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -33,7 +33,7 @@ public class UserCreationEndpoint {
                         .password(bCryptPasswordEncoder.encode("pass"))
                         .roles(Collections.singleton(
                                 Role.builder()
-                                        .id("1")
+                                        .id(1L)
                                         .name("ADMIN")
                                         .build()
                         ))

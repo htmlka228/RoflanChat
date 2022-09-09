@@ -32,7 +32,7 @@ public class UIRoflanMessage extends Div implements HasLabel, ConfigurableStyles
 
     public void setRoflanMessage(RoflanMessage roflanMessage) {
         this.roflanMessage = roflanMessage;
-        this.label.setText(roflanMessage.getUser().getUsername());
+        this.label.setText(roflanMessage.getRoflanUser().getUsername());
         this.message.setText(roflanMessage.getMessage());
     }
 

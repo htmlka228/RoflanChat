@@ -94,7 +94,7 @@ public class ChatView extends VerticalLayout {
         if (!StringUtils.isEmpty(messageText)) {
             RoflanMessage message = RoflanMessage.builder()
                     .message(messageText)
-                    .user(securityService.getAuthenticatedUser())
+                    .roflanUser(securityService.getAuthenticatedUser())
                     .sentTime(LocalDateTime.now())
                     .build();
 

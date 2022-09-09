@@ -29,7 +29,7 @@ public class RoflanMessage {
 
     @ManyToOne
     @JoinColumn
-    private RoflanUser user;
+    private RoflanUser roflanUser;
 
     private String message;
     private LocalDateTime sentTime;
