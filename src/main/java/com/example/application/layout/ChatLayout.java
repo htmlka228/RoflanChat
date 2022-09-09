@@ -36,6 +36,7 @@ public class ChatLayout extends AppLayout {
     }
 
     private void createHeader() {
+        //TODO Move this styling into css file if possible
         Button logout = new Button("logout", e -> securityService.logout());
         logout.getStyle().set("margin", "0 20px 0 auto");
         HorizontalLayout header = new HorizontalLayout(new DrawerToggle(), logout);

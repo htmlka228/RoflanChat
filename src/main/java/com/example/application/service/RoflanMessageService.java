@@ -23,8 +23,9 @@ public class RoflanMessageService {
     }
 
     public RoflanMessage save(RoflanMessage message) {
+        RoflanMessage savedMessage = roflanMessageRepository.save(message);
         messagesHistory.add(message);
-        return roflanMessageRepository.save(message);
+        return savedMessage;
     }
 
     public void deleteAllMessages() {

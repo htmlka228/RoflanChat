@@ -34,7 +34,7 @@ import java.time.LocalDateTime;
 @UIScope
 @SpringComponent
 @JsModule("js/chat-onload-scroller.js")
-@CssImport(value = "themes/mytodo/styles.css", themeFor = "vaadin-input-container")
+@CssImport(value = "themes/mytodo/styles.css", themeFor = "vaadin-app-layout")
 @Slf4j
 @PermitAll
 public class ChatView extends VerticalLayout {
@@ -73,6 +73,7 @@ public class ChatView extends VerticalLayout {
         sendMessageLayout.add(messageInput, sendMessageIcon);
 
         addClassName("roflan-chat-wrapper");
+        setHeightFull();
         add(messagesLayout, sendMessageLayout);
     }
 

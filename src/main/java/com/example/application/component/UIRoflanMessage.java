@@ -22,8 +22,8 @@ public class UIRoflanMessage extends Div implements HasLabel, ConfigurableStyles
     @Override
     public void configureStyles() {
         addClassName("roflan-message-box");
-        label.addClassName("roflan-message-label");
-        message.addClassName("roflan-message-text");
+        label.addClassName("roflan-message-box-label");
+        message.addClassName("roflan-message-box-text");
     }
 
     public RoflanMessage getRoflanMessage() {
