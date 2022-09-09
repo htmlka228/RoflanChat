@@ -26,7 +26,7 @@ vaadin-app-layout::part(drawer) {
 }
 
 .roflan-messages-area {
-    /* height: calc(100vh - 117px); */
+    min-height: calc(100vh - 135px);
     border-bottom: black solid 1px;
     align-items: flex-end;
     overflow-y: scroll;
