@@ -2,6 +2,7 @@ package com.example.application.layout;
 
 import com.example.application.broadcast.UserLoggedInBroadcaster;
 import com.example.application.broadcast.UserLoggedOutBroadcaster;
+import com.example.application.component.LoggedInUserBox;
 import com.example.application.security.SecurityService;
 import com.example.application.service.RoflanUserService;
 import com.vaadin.flow.component.AttachEvent;
@@ -13,7 +14,6 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.shared.Registration;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
@@ -47,7 +47,7 @@ public class ChatLayout extends AppLayout {
     }
 
     private void createDrawer() {
-        securityService.getAllAuthenticatedUsers().forEach(user -> loggedInUsersList.add(createLoggedInUserField(user.getUsername())));
+        securityService.getAllAuthenticatedUsers().forEach(user -> loggedInUsersList.add(new LoggedInUserBox(user.getUsername())));
 
         addToDrawer(loggedInUsersList);
 
@@ -59,17 +59,17 @@ public class ChatLayout extends AppLayout {
         UI ui = attachEvent.getUI();
 
         //TODO Come up with other solution to remove user logged in block from ui, array creation is just temporal workaround
-        final TextField[] loggedInUserField = new TextField[1];
+        final LoggedInUserBox[] loggedInUserBox = new LoggedInUserBox[1];
 
         loggedInBroadcasterRegistration = UserLoggedInBroadcaster.register(user -> ui.access(() -> {
-            loggedInUserField[0] = createLoggedInUserField(user.getUsername());
-            loggedInUsersList.add(loggedInUserField[0]);
+            loggedInUserBox[0] = new LoggedInUserBox(user.getUsername());
+            loggedInUsersList.add(loggedInUserBox[0]);
         }));
 
         //TODO delete unused consumer methods from Broadcasts
         loggedOutBroadcasterRegistration = UserLoggedOutBroadcaster.register(user -> ui.access(() -> {
-            if (loggedInUserField[0] != null) {
-                loggedInUsersList.remove(loggedInUserField[0]);
+            if (loggedInUserBox[0] != null) {
+                loggedInUsersList.remove(loggedInUserBox[0]);
             }
         }));
     }
@@ -78,14 +78,5 @@ public class ChatLayout extends AppLayout {
     protected void onDetach(DetachEvent detachEvent) {
         loggedInBroadcasterRegistration.remove();
         loggedInBroadcasterRegistration = null;
-    }
-
-    public TextField createLoggedInUserField(String username) {
-        TextField loggedInUserField = new TextField();
-        loggedInUserField.setReadOnly(true);
-        loggedInUserField.setValue(username);
-        loggedInUserField.addClassName("logged-in-user-field");
-
-        return loggedInUserField;
     }
 }

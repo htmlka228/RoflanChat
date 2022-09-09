@@ -31,29 +31,30 @@ vaadin-app-layout::part(drawer) {
     overflow-y: scroll;
 }
 
-.roflan-message {
+.roflan-message-box {
     margin-right: 10px;
     padding: 0;
     background-color: #c2d9fc;
     max-height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-width: 200px;
+
+    /*
+        TODO Add Styles to style roflan message
+    */
 }
 
-:host([readonly])::after {
-    background-color: transparent;
-    opacity: 0;
-    border: none;
-}
-
-.logged-in-user-field {
+.logged-in-user-box {
     border: 0.5px dashed;
     max-height: 30px;
     padding: 0px;
     max-width: 130px;
 }
 
-::slotted(:not([slot$='fix'])) {
-    min-height: 30px;
-    /*
-    TODO It shouldn't affect all inputs, only logged in users
-    */
+:host([readonly])::after {
+    background-color: transparent;
+    opacity: 0;
+    border: none;
 }

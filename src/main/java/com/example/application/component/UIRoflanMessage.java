@@ -1,31 +1,29 @@
 package com.example.application.component;
 
 import com.example.application.model.RoflanMessage;
-import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.HasLabel;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Span;
 
-public class UIRoflanMessage extends TextField {
+public class UIRoflanMessage extends Div implements HasLabel, ConfigurableStyles {
+    private Span label;
+    private Span message;
     private RoflanMessage roflanMessage;
 
     public UIRoflanMessage(RoflanMessage roflanMessage) {
-        this.roflanMessage = roflanMessage;
-        super.setValue(roflanMessage.getMessage());
-        super.setLabel(roflanMessage.getUser().getUsername());
-        configureMessage();
+        this.label = new Span();
+        this.message = new Span();
+
+        setRoflanMessage(roflanMessage);
+        configureStyles();
+        add(label, message);
     }
 
     @Override
-    public String getValue() {
-        return roflanMessage.getMessage();
-    }
-
-    @Override
-    public void setValue(String value) {
-        if (roflanMessage == null) {
-            roflanMessage = new RoflanMessage();
-        }
-
-        roflanMessage.setMessage(value);
-        super.setValue(value);
+    public void configureStyles() {
+        addClassName("roflan-message-box");
+        label.addClassName("roflan-message-label");
+        message.addClassName("roflan-message-text");
     }
 
     public RoflanMessage getRoflanMessage() {
@@ -34,11 +32,16 @@ public class UIRoflanMessage extends TextField {
 
     public void setRoflanMessage(RoflanMessage roflanMessage) {
         this.roflanMessage = roflanMessage;
-        super.setValue(roflanMessage.getMessage());
+        this.label.setText(roflanMessage.getUser().getUsername());
+        this.message.setText(roflanMessage.getMessage());
     }
 
-    public void configureMessage() {
-        setReadOnly(true);
-        addClassName("roflan-message");
+    public String getMessage() {
+        return roflanMessage.getMessage();
+    }
+
+    public void setMessage(String value) {
+        roflanMessage.setMessage(value);
+        message.setText(value);
     }
 }

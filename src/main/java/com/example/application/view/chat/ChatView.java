@@ -54,10 +54,7 @@ public class ChatView extends VerticalLayout {
 
         messagesLayout.addClassName("roflan-messages-area");
         messagesLayout.removeAll();
-        roflanMessageService.getMessagesHistory().forEach(message -> {
-            message.setLabel(message.getRoflanMessage().getUser().getUsername());
-            messagesLayout.add(message);
-        });
+        roflanMessageService.getMessagesHistory().forEach(message -> messagesLayout.add(message));
 
         HorizontalLayout sendMessageLayout = new HorizontalLayout();
         sendMessageLayout.addClassName("roflan-message-block");
